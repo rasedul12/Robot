@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Robot Buy</title>
+  <style>
+    :root{
+      --bg:#000;
+      --accent:#00ff66;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background:var(--bg);
+      color:var(--accent);
+      font-family: Arial, sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+    }
+    h1{
+      font-size: clamp(40px, 8vw, 72px);
+      margin-bottom:20px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+      100%{transform:translateY(0)}
+    }
+    .btn{
+      padding:16px 36px;
+      font-size:18px;
+      color:var(--accent);
+      background:transparent;
+      border:2px solid var(--accent);
+      border-radius:12px;
+      cursor:pointer;
+      transition: all 0.3s ease;
+    }
+    .btn:hover{
+      background:rgba(0,255,102,0.1);
+    }
+    /* modal */
+    .backdrop{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:opacity .3s;
+    }
+    .backdrop.show{opacity:1;pointer-events:auto;}
+    .modal{
+      background:#111;
+      padding:28px;
+      border-radius:14px;
+      border:1px solid rgba(0,255,102,0.2);
+      text-align:center;
+      transform:translateY(20px) scale(.98);
+      opacity:0;
+      transition:all .3s;
+    }
+    .backdrop.show .modal{transform:translateY(0) scale(1);opacity:1;}
+    .modal h2{margin-bottom:16px}
+    .actions{display:flex;gap:12px;justify-content:center}
+    .actions button{padding:10px 20px;border-radius:8px;cursor:pointer}
+    .primary{background:var(--accent);border:none;color:#000;font-weight:bold}
+    .secondary{background:transparent;border:1px solid var(--accent);color:var(--accent)}
+  </style>
+</head>
+<body>
+  <h1>Robot Buy</h1>
+  <button id="continueBtn" class="btn">Continue</button>
+
+  <div id="backdrop" class="backdrop">
+    <div class="modal">
+      <h2>Are you human or robot?</h2>
+      <div class="actions">
+        <button class="secondary" id="btnRobot">Robot</button>
+        <button class="primary" id="btnHuman">Human</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const continueBtn=document.getElementById('continueBtn');
+    const backdrop=document.getElementById('backdrop');
+    const btnHuman=document.getElementById('btnHuman');
+    const btnRobot=document.getElementById('btnRobot');
+
+    continueBtn.addEventListener('click',()=>{
+      backdrop.classList.add('show');
+    });
+
+    btnHuman.addEventListener('click',()=>{
+  btnHuman.textContent='Verified ✓';
+  setTimeout(()=>{
+    window.location.href = "nextpage.html"; // এখানে তোমার নতুন পেজের লিংক দাও
+  },800);
+});
+
+
+    btnRobot.addEventListener('click',()=>{
+      btnRobot.textContent='Access Denied';
+      setTimeout(()=>{btnRobot.textContent='Robot';},800);
+    });
+
+    backdrop.addEventListener('click',e=>{
+      if(e.target===backdrop)backdrop.classList.remove('show');
+    });
+  </script>
+</body>
+</html>
